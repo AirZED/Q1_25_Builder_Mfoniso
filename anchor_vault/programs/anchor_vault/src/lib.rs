@@ -107,17 +107,26 @@ impl<'info> Payment<'info> {
 
 #[derive(Accounts)]
 pub struct Close<'info> {
+    #[account(mut, close=receiver)]
+    pub data_account: Account<'info, MyData>,
+    
     #[account(mut)]
-    pub user: Signer<'info>,
-
-    #[account(seeds= [b"state", user.key().as_ref()], bump=state.state_bump)]
-    pub state: Account<'info, VaultState>,
-
-    #[account(mut, seeds= [b"vault", state.key().as_ref()], bump=state.vault_bump)]
-    pub vault: SystemAccount<'info>,
-
-    pub system_program: Program<'info, System>,
+    pub receiver: SystemAccount<'info>,
+ 
 }
+
+#[account]
+struct MyData {
+    pub data: u64,
+}
+
+
+impl<'info> Close<'info> {
+   
+
+
+    }
+
 
 #[account]
 #[derive(InitSpace)]
