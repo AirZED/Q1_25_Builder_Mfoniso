@@ -1,6 +1,5 @@
-use anchor_lang::prelude::*;
-use anchor_spl::{associated_token::AssociatedToken, 
-    token_interface::{Mint, TokenAccount, TokenInterface}
+use anchor_lang::{prelude::*, system_program::{Transfer, transfer}};
+use anchor_spl::{associated_token::AssociatedToken, token::{transfer_checked, TransferChecked}, token_interface::{Mint, TokenAccount, TokenInterface}
 };
 
 
@@ -69,17 +68,26 @@ pub fn init_escrow(&mut self, seed: u64, receive:u64, bump:&MakeBumps)->Result<(
 
 }
 
-// pub fn deposit(&mut self, amount: u64)->Result<()>{
+pub fn deposit(&mut self, amount: u64)->Result<()>{
 
-//     let cpi_program = self.token_program.to_account_info();
+    let cpi_program = self.token_program.to_account_info();
 
+    let cpi_accounts  = TransferChecked{
+        from: self.maker_ata_a.to_account_info(),
+        to: self.vault.to_account_info(),
+        authority: self.maker.to_account_info(),
+        mint: self.mint_a.to_account_info(),
+    };
+    
 
-
-
-// }
-
+    let transfer_ctx = CpiContext::new(cpi_program, cpi_accounts);
+    transfer_checked(transfer_ctx, amount, self.mint_a.decimals)
+    }
 
 }
+
+
+
 
 
 
