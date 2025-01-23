@@ -3,6 +3,7 @@ use anchor_spl::{associated_token::AssociatedToken, token::{transfer_checked, Tr
 };
 
 
+use crate::state::escrow::Escrow;
 
 #[derive(Accounts)]
 #[instruction(seed:u64)]
@@ -81,27 +82,13 @@ pub fn deposit(&mut self, amount: u64)->Result<()>{
     
 
     let transfer_ctx = CpiContext::new(cpi_program, cpi_accounts);
-    transfer_checked(transfer_ctx, amount, self.mint_a.decimals)
+    transfer_checked(transfer_ctx, amount, self.mint_a.decimals)?;
+
+    Ok(())
     }
 
 }
 
 
 
-
-
-
-
-#[account]
-#[derive(InitSpace)]
-struct Escrow{
-
-    pub seed: u64,
-    pub maker: Pubkey,
-    pub mint_a: Pubkey,
-    pub mint_b: Pubkey,
-    pub receive: u64,
-    pub bump: u8,
-
-}
 
