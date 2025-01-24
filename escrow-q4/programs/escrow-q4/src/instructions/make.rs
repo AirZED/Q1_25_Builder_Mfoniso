@@ -37,12 +37,11 @@ pub struct Make<'info>{
     pub escrow: Account<'info, Escrow>,
 
     #[account(
-        init_if_needed,
+        init,
         payer = maker,
         associated_token::mint = mint_a, 
         associated_token::authority = escrow,
         associated_token::token_program = token_program
-        
     )]
     pub vault: InterfaceAccount<'info, TokenAccount>,
     pub associated_token_program: Program<'info, AssociatedToken>,

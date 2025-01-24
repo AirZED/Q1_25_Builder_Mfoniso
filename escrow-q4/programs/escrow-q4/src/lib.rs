@@ -6,6 +6,9 @@ use instruction::*;
 mod state;
 use state::*;
 
+mod constants;
+use constants::*;
+
 
 
 declare_id!("DjLVzRa7F44qF4SY6KJDMNxAY93u1VH7iGV2Y6ERSt4F");
