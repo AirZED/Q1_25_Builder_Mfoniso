@@ -3,6 +3,8 @@ use anchor_lang::{
     system_program::{transfer, Transfer},
 };
 
+
+
 declare_id!("E6Z3AzBrSmLLVXUn7ptLW7sYEhTGzKakRCNi8KjB8N1u");
 
 #[program]
@@ -22,6 +24,13 @@ pub mod anchor_vault {
     }
 
     
+}
+
+#[account]
+#[derive(InitSpace)]
+pub struct VaultState {
+    pub state_bump: u8,
+    pub vault_bump: u8,
 }
 
 #[derive(Accounts)]
@@ -99,7 +108,7 @@ impl<'info> Payment<'info> {
 
 
 
-        let cpi_ctx = CpiContext::new_with_signer(cpi_program, cpi_accounts, signer_seeds);
+        let cpi_ctx: CpiContext<'_, '_, '_, '_, Transfer<'_>> = CpiContext::new_with_signer(cpi_program, cpi_accounts, signer_seeds);
         transfer(cpi_ctx, amount)
     }
 
@@ -142,13 +151,9 @@ impl<'info> Close<'info> {
         let cpi_ctx = CpiContext::new_with_signer(cpi_program, cpi_accounts, signer_seeds);
         transfer(cpi_ctx, self.vault.lamports())?;
 
+
+        self.close()?;
         Ok(())
     }
 }
 
-#[account]
-#[derive(InitSpace)]
-pub struct VaultState {
-    pub state_bump: u8,
-    pub vault_bump: u8,
-}
