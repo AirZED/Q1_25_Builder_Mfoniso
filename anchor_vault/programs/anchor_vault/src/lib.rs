@@ -7,6 +7,8 @@ use anchor_lang::{
 
 declare_id!("E6Z3AzBrSmLLVXUn7ptLW7sYEhTGzKakRCNi8KjB8N1u");
 
+
+// entrypoint
 #[program]
 pub mod anchor_vault {
     use super::*;
@@ -26,6 +28,8 @@ pub mod anchor_vault {
     
 }
 
+
+// vault state or our source of truth
 #[account]
 #[derive(InitSpace)]
 pub struct VaultState {
@@ -33,6 +37,8 @@ pub struct VaultState {
     pub vault_bump: u8,
 }
 
+
+// initialize the vault account
 #[derive(Accounts)]
 pub struct Initialize<'info> {
     #[account(mut)]
@@ -63,6 +69,8 @@ impl<'info> Initialize<'info> {
     }
 }
 
+
+// deposit and withdraw from the vault
 #[derive(Accounts)]
 pub struct Payment<'info> {
     #[account()]
