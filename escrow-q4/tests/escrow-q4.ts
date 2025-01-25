@@ -8,9 +8,9 @@ describe("escrow-q4", () => {
 
   const program = anchor.workspace.EscrowQ4 as Program<EscrowQ4>;
 
-  it("Is initialized!", async () => {
+  it("Making escrow!", async () => {
     // Add your test here.
-    const tx = await program.methods.initialize().rpc();
+    const tx = await program.methods.make().accounts().rpc();
     console.log("Your transaction signature", tx);
   });
 });
