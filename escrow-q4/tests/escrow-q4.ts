@@ -10,7 +10,9 @@ describe("escrow-q4", () => {
 
   it("Making escrow!", async () => {
     // Add your test here.
-    const tx = await program.methods.make().accounts().rpc();
+    const tx = await program.methods
+      .make(new anchor.BN(1), new anchor.BN(1), new anchor.BN(1))
+      .rpc();
     console.log("Your transaction signature", tx);
   });
 });
