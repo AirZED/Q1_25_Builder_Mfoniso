@@ -5,13 +5,13 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-escrow = "6BacKD9ynDDBPq3ATnWXL7HEUwWdnKnYkueDrcnAab96"
+escrow = "DjLVzRa7F44qF4SY6KJDMNxAY93u1VH7iGV2Y6ERSt4F"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
