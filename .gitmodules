@@ -1,0 +1,3 @@
+[submodule "blockchain-checkers"]
+	path = blockchain-checkers
+	url = https://github.com/AirZED/blockchain-checkers.git
