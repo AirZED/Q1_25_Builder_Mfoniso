@@ -16,7 +16,7 @@ pub mod escrow {
 
     use super::*;
 
-    pub fn make(ctx: Context<Make>, seeds: u64, recieve: u64, bump: u64) -> Result<()> {
+    pub fn make(ctx: Context<Make>, seeds: u64, recieve: u64) -> Result<()> {
         let escrow = ctx.accounts;
         escrow.init_escrow(seeds, recieve, &ctx.bumps)?;
         escrow.deposit(recieve)?;
